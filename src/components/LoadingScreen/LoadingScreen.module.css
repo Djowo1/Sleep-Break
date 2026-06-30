@@ -1,24 +1,24 @@
+/* ── WRAPPER ── */
 .wrapper {
   position: fixed;
   inset: 0;
   background: #000;
   z-index: 99999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 /* ── TOP BAR ── */
 .topBar {
   position: absolute;
-  top: clamp(28px, 4vh, 40px);
-  left: clamp(16px, 3vw, 28px);
-  right: clamp(16px, 3vw, 28px);
+  top: clamp(32px, 5vh, 48px);
+  left: clamp(18px, 3vw, 28px);
+  right: clamp(18px, 3vw, 28px);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  z-index: 8;
+  z-index: 10;
 }
 
 .recBadge {
@@ -28,18 +28,18 @@
 }
 
 .recDot {
-  width: 8px;
-  height: 8px;
-  min-width: 8px;
+  width: 9px;
+  height: 9px;
+  min-width: 9px;
   background: #ff3030;
   border-radius: 50%;
   animation: recBlink 1s steps(1) infinite;
-  box-shadow: 0 0 8px #ff3030, 0 0 16px rgba(255, 48, 48, 0.4);
+  box-shadow: 0 0 8px #ff3030, 0 0 18px rgba(255, 48, 48, 0.45);
 }
 
 .recLabel {
   font-family: var(--font-pixel);
-  font-size: clamp(0.3rem, 1.2vw, 0.42rem);
+  font-size: clamp(0.3rem, 1.1vw, 0.42rem);
   color: #ff3030;
   letter-spacing: 2px;
   text-shadow: 0 0 8px rgba(255, 48, 48, 0.7);
@@ -49,60 +49,51 @@
 .rightBadge {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
 }
 
 .channelLabel {
   font-family: var(--font-pixel);
   font-size: clamp(0.28rem, 1vw, 0.38rem);
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(255, 255, 255, 0.5);
   letter-spacing: 2px;
 }
 
 .recTimer {
   font-family: var(--font-pixel);
   font-size: clamp(0.28rem, 1vw, 0.38rem);
-  color: rgba(255, 255, 255, 0.65);
+  color: rgba(255, 255, 255, 0.6);
   letter-spacing: 2px;
 }
 
 /* ── STATIC LAYERS ── */
-
-/* Layer 1 */
-.static {
+.static1 {
   position: absolute;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n1'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n1)'/%3E%3C/svg%3E");
   background-size: 200px 200px;
-  animation: staticNoise1 0.07s steps(3) infinite;
-  opacity: 0.92;
+  animation: sNoise1 0.07s steps(3) infinite;
+  opacity: 0.95;
   mix-blend-mode: screen;
-  transition: opacity 0.7s ease;
+  transition: opacity 0.8s ease;
   z-index: 2;
 }
 
-/* Layer 2 — offset animation for more depth */
-.staticLayer2 {
+.static2 {
   position: absolute;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise2'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.95' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise2)' opacity='0.6'/%3E%3C/svg%3E");
-  background-size: 150px 150px;
-  animation: staticNoise2 0.11s steps(2) infinite;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n2'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.95' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n2)' opacity='0.6'/%3E%3C/svg%3E");
+  background-size: 140px 140px;
+  animation: sNoise2 0.1s steps(2) infinite;
   opacity: 0.65;
   mix-blend-mode: overlay;
-  transition: opacity 0.7s ease;
+  transition: opacity 0.8s ease;
   z-index: 2;
 }
 
-.staticDim {
-  opacity: 0.32 !important;
-}
+.staticDim   { opacity: 0.3 !important; }
+.staticFaint { opacity: 0.1 !important; }
 
-.staticFaint {
-  opacity: 0.12 !important;
-}
-
-/* Horizontal roll effect — simulates TV signal roll */
 .rollLines {
   position: absolute;
   inset: 0;
@@ -110,10 +101,10 @@
     0deg,
     transparent 0px,
     transparent 3px,
-    rgba(255, 255, 255, 0.025) 3px,
-    rgba(255, 255, 255, 0.025) 4px
+    rgba(255, 255, 255, 0.022) 3px,
+    rgba(255, 255, 255, 0.022) 4px
   );
-  animation: rollDown 3s linear infinite;
+  animation: rollDown 3.5s linear infinite;
   z-index: 3;
   pointer-events: none;
 }
@@ -124,17 +115,17 @@
   inset: 0;
   background:
     radial-gradient(
-      ellipse 65% 65% at 50% 38%,
+      ellipse 60% 60% at 50% 38%,
       transparent 0%,
-      rgba(0, 0, 0, 0.45) 60%,
-      rgba(0, 0, 0, 0.96) 100%
+      rgba(0,0,0,0.5) 60%,
+      rgba(0,0,0,0.97) 100%
     ),
     linear-gradient(
       180deg,
-      rgba(10, 0, 8, 0.55) 0%,
-      transparent 20%,
-      transparent 68%,
-      rgba(10, 0, 8, 0.75) 100%
+      rgba(10,0,8,0.6) 0%,
+      transparent 18%,
+      transparent 65%,
+      rgba(10,0,8,0.85) 100%
     );
   pointer-events: none;
   z-index: 4;
@@ -148,8 +139,8 @@
     0deg,
     transparent 0px,
     transparent 2px,
-    rgba(0, 0, 0, 0.28) 2px,
-    rgba(0, 0, 0, 0.28) 4px
+    rgba(0,0,0,0.28) 2px,
+    rgba(0,0,0,0.28) 4px
   );
   pointer-events: none;
   z-index: 5;
@@ -162,142 +153,138 @@
   position: absolute;
   left: 0;
   right: 0;
-  background: rgba(255, 255, 255, 0.07);
   z-index: 3;
+  background: rgba(255,255,255,0.07);
 }
+.glitchBar1 { top: 14%; height: 16px; animation: glitchBar 0.28s linear infinite; }
+.glitchBar2 { top: 52%; height: 12px; animation: glitchBar 0.34s linear infinite reverse; }
+.glitchBar3 { top: 79%; height: 8px;  animation: glitchBar 0.21s linear infinite; }
 
-.glitchBar1 {
-  top: 14%;
-  height: 16px;
-  animation: glitchBarMove 0.28s linear infinite;
-}
-
-.glitchBar2 {
-  top: 52%;
-  height: 12px;
-  animation: glitchBarMove 0.35s linear infinite reverse;
-}
-
-.glitchBar3 {
-  top: 78%;
-  height: 8px;
-  animation: glitchBarMove 0.22s linear infinite;
-}
-
-/* ── SCENE (holds image + bottom content) ── */
-.scene {
+/* ── MAIN LAYOUT ── */
+.mainLayout {
   position: relative;
   z-index: 6;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
+  /* Image takes upper 55%, content takes lower 45% */
+  padding-top: clamp(60px, 10vh, 90px);
+  padding-bottom: clamp(28px, 5vh, 50px);
   gap: 0;
 }
 
-/* ── FIGURE IMAGE ── */
-.bgFigure {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: clamp(180px, 36vw, 300px);
-  height: clamp(240px, 55vh, 460px);
-  background-image: url('/images/loading/shhh-figure.jpg');
+/* ── IMAGE SLOT ── */
+.imageSlot {
+  flex: 0 0 55%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+/* ── FIGURE ── */
+.figure {
+  width: clamp(160px, 30vw, 280px);
+  height: clamp(220px, 48vh, 420px);
+  background-image: url('/images/loading/shhh-figure.png');
   background-size: contain;
   background-repeat: no-repeat;
-  background-position: center bottom;
+  background-position: center;
   opacity: 0;
-  filter: brightness(0.5) contrast(1.3) saturate(0.7);
+  filter: brightness(0.45) contrast(1.3) saturate(0.7);
+  transform: scale(0.94);
   transition:
-    opacity 0.55s ease,
-    top 0.55s cubic-bezier(0.76, 0, 0.24, 1),
-    width 0.55s cubic-bezier(0.76, 0, 0.24, 1),
-    height 0.55s cubic-bezier(0.76, 0, 0.24, 1),
-    filter 0.55s ease;
-  will-change: top, opacity;
+    opacity 0.7s ease,
+    filter 0.7s ease,
+    transform 0.7s cubic-bezier(0.34, 1.2, 0.64, 1);
 }
 
-.bgFigureIn {
+.figureVisible {
   opacity: 1;
-  filter: brightness(0.72) contrast(1.3) saturate(0.85);
+  filter: brightness(0.78) contrast(1.28) saturate(0.88);
+  transform: scale(1);
 }
 
-.bgFigureShrink {
-  opacity: 1;
-  top: 34%;
-  width: clamp(130px, 22vw, 200px);
-  height: clamp(170px, 34vh, 300px);
-  filter: brightness(0.78) contrast(1.25) saturate(0.9);
+/* ── CONTENT SLOT ── */
+.contentSlot {
+  flex: 0 0 45%;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0 clamp(16px, 5vw, 40px);
 }
 
-/* ── BOTTOM CONTENT ── */
-.bottomContent {
-  position: absolute;
-  bottom: clamp(28px, 7vh, 60px);
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(92vw, 400px);
+.contentInner {
+  width: 100%;
+  max-width: 420px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
-  z-index: 7;
+  gap: 14px;
 }
 
-/* ── TYPED TEXT BLOCK ── */
+/* ── TYPED BLOCK ── */
 .typedBlock {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
-  min-height: clamp(52px, 10vh, 80px);
+  gap: 8px;
+  min-height: clamp(70px, 14vh, 100px);
 }
 
 .typedLine {
   font-family: var(--font-pixel);
   text-align: center;
-  letter-spacing: 2px;
   line-height: 1.7;
-  min-height: 1.2em;
+  min-height: 1.3em;
   width: 100%;
+  letter-spacing: 2px;
 }
 
-/* Line 1 — SHHHH... big and pink */
-.typedLineAccent {
-  font-size: clamp(0.7rem, 2.8vw, 1.05rem);
+/* SHHHH... — big, pink, bold glow */
+.line_accent {
+  font-size: clamp(0.85rem, 3.2vw, 1.2rem);
   color: var(--pink-hot);
+  font-weight: 700;
   text-shadow:
-    0 0 12px var(--pink-hot),
-    0 0 28px rgba(255, 45, 120, 0.6);
+    0 0 14px var(--pink-hot),
+    0 0 32px rgba(255, 45, 120, 0.65),
+    0 0 60px rgba(204, 0, 102, 0.3);
+  letter-spacing: 6px;
 }
 
-/* Line 2 — THE MONSTERS ARE COMING — medium white */
-.typedLine:not(.typedLineAccent):not(.typedLineSub) {
-  font-size: clamp(0.48rem, 1.8vw, 0.68rem);
+/* THE MONSTERS ARE COMING — medium, white */
+.line_main {
+  font-size: clamp(0.55rem, 2vw, 0.78rem);
   color: var(--white-glow);
-  text-shadow: 0 0 10px rgba(123, 47, 190, 0.7);
+  font-weight: 600;
+  text-shadow:
+    0 0 10px rgba(240, 230, 255, 0.5),
+    0 0 20px rgba(123, 47, 190, 0.5);
+  letter-spacing: 3px;
 }
 
-/* Line 3 — DO NOT MAKE A SOUND — smaller muted */
-.typedLineSub {
-  font-size: clamp(0.38rem, 1.4vw, 0.52rem);
+/* DO NOT MAKE A SOUND — smaller, muted */
+.line_sub {
+  font-size: clamp(0.42rem, 1.5vw, 0.58rem);
   color: var(--text-muted);
-  letter-spacing: 3px;
+  font-weight: 400;
+  letter-spacing: 4px;
+  text-shadow: 0 0 8px rgba(123, 47, 190, 0.4);
 }
 
 .cursor {
   display: inline-block;
-  color: var(--white-glow);
+  color: var(--pink-hot);
   animation: cursorBlink 0.55s steps(1) infinite;
-  margin-left: 2px;
-  font-size: 0.9em;
+  margin-left: 3px;
 }
 
-/* Divider */
+/* ── DIVIDER ── */
 .divider {
   width: 100%;
   height: 1px;
@@ -309,8 +296,7 @@
     var(--purple-bright),
     transparent
   );
-  opacity: 0.6;
-  margin: 2px 0;
+  opacity: 0.55;
 }
 
 /* ── PROGRESS BAR ── */
@@ -323,8 +309,8 @@
 
 .barTrack {
   flex: 1;
-  height: 8px;
-  background: rgba(26, 10, 46, 0.85);
+  height: 9px;
+  background: rgba(26, 10, 46, 0.9);
   border: 1px solid var(--purple-bright);
   position: relative;
   overflow: hidden;
@@ -338,7 +324,7 @@
     var(--pink-hot),
     var(--magenta)
   );
-  box-shadow: 0 0 10px var(--pink-hot);
+  box-shadow: 0 0 12px var(--pink-hot);
 }
 
 .segment {
@@ -346,35 +332,35 @@
   top: 0;
   width: 1px;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0,0,0,0.55);
   opacity: 0.5;
 }
 
 .percent {
   font-family: var(--font-pixel);
-  font-size: clamp(0.35rem, 1.2vw, 0.45rem);
+  font-size: clamp(0.35rem, 1.1vw, 0.45rem);
   color: var(--pink-hot);
   min-width: 28px;
   text-align: right;
   flex-shrink: 0;
 }
 
-.loadingStatus {
+.statusText {
   font-family: var(--font-pixel);
   font-size: clamp(0.3rem, 1vw, 0.38rem);
   color: var(--text-muted);
   letter-spacing: 2px;
-  animation: blink 0.9s steps(1) infinite;
   align-self: flex-start;
+  animation: blink 0.95s steps(1) infinite;
 }
 
-/* ── CORNER DECORATIONS ── */
+/* ── CORNERS ── */
 .corner {
   position: absolute;
   width: 20px;
   height: 20px;
   pointer-events: none;
-  z-index: 8;
+  z-index: 10;
 }
 
 .cornerTL {
@@ -406,14 +392,14 @@
 }
 
 /* ── KEYFRAMES ── */
-@keyframes staticNoise1 {
+@keyframes sNoise1 {
   0%   { background-position: 0 0; }
   33%  { background-position: -22% 14%; }
   66%  { background-position: 18% -12%; }
   100% { background-position: 0 0; }
 }
 
-@keyframes staticNoise2 {
+@keyframes sNoise2 {
   0%   { background-position: 0 0; }
   50%  { background-position: 10% -18%; }
   100% { background-position: 0 0; }
@@ -421,10 +407,10 @@
 
 @keyframes rollDown {
   0%   { background-position: 0 0; }
-  100% { background-position: 0 100px; }
+  100% { background-position: 0 120px; }
 }
 
-@keyframes glitchBarMove {
+@keyframes glitchBar {
   0%   { transform: translateX(-100%); opacity: 0; }
   8%   { opacity: 1; }
   92%  { opacity: 1; }
@@ -433,7 +419,7 @@
 
 @keyframes recBlink {
   0%, 100% { opacity: 1; }
-  50%       { opacity: 0.15; }
+  50%       { opacity: 0.12; }
 }
 
 @keyframes cursorBlink {
@@ -449,71 +435,84 @@
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
   .topBar {
-    top: clamp(38px, 6vh, 52px);
+    top: clamp(40px, 6.5vh, 54px);
   }
 
-  .bgFigureShrink {
-    top: 32%;
-    width: clamp(110px, 38vw, 180px);
-    height: clamp(150px, 34vh, 260px);
+  .figure {
+    width: clamp(140px, 42vw, 220px);
+    height: clamp(190px, 42vh, 320px);
   }
 
-  .bottomContent {
-    bottom: clamp(24px, 5vh, 44px);
-    width: min(90vw, 360px);
-    gap: 10px;
+  .contentInner {
+    max-width: 360px;
+    gap: 12px;
   }
 
   .typedBlock {
-    min-height: clamp(48px, 9vh, 72px);
+    min-height: clamp(62px, 12vh, 88px);
   }
 }
 
 @media (max-width: 480px) {
   .topBar {
-    top: clamp(42px, 7vh, 56px);
-    left: clamp(12px, 3vw, 18px);
-    right: clamp(12px, 3vw, 18px);
+    top: clamp(44px, 7.5vh, 58px);
+    left: 14px;
+    right: 14px;
   }
 
-  .bgFigure {
-    width: 55vw;
-    height: 52vh;
+  .mainLayout {
+    padding-top: clamp(70px, 12vh, 96px);
   }
 
-  .bgFigureShrink {
-    top: 30%;
-    width: 40vw;
-    height: 30vh;
+  .imageSlot {
+    flex: 0 0 50%;
   }
 
-  .bottomContent {
-    bottom: clamp(20px, 4.5vh, 38px);
-    width: 88vw;
-    gap: 8px;
+  .contentSlot {
+    flex: 0 0 50%;
+    padding: 0 14px;
+  }
+
+  .figure {
+    width: 52vw;
+    height: 40vh;
+  }
+
+  .contentInner {
+    gap: 10px;
   }
 
   .typedBlock {
-    gap: 5px;
+    gap: 6px;
   }
 
-  .barTrack {
-    height: 7px;
+  .line_accent {
+    font-size: clamp(0.75rem, 5vw, 0.95rem);
+    letter-spacing: 4px;
+  }
+
+  .line_main {
+    font-size: clamp(0.45rem, 3.2vw, 0.62rem);
+    letter-spacing: 2px;
+  }
+
+  .line_sub {
+    font-size: clamp(0.36rem, 2.6vw, 0.5rem);
+    letter-spacing: 3px;
   }
 }
 
 @media (max-width: 360px) {
   .topBar {
-    top: 48px;
+    top: 50px;
   }
 
-  .recLabel {
-    font-size: 0.28rem;
+  .figure {
+    width: 56vw;
+    height: 36vh;
   }
 
-  .bgFigureShrink {
-    width: 44vw;
-    height: 28vh;
-    top: 28%;
+  .line_accent {
+    letter-spacing: 3px;
   }
 }
