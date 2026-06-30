@@ -1,0 +1,45 @@
+<svg width="200" height="50" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+      .text {
+        font-family: 'Press Start 2P', cursive;
+        font-size: 24px;
+        fill: #FFF;
+        text-anchor: middle;
+        animation: glitch 3s infinite;
+      }
+      .break-text {
+        animation-delay: 1.5s;
+      }
+      @keyframes glitch {
+        0%, 20%, 100% {
+          transform: none;
+          opacity: 1;
+        }
+        21%, 24% {
+          transform: skewX(10deg);
+          opacity: 0.8;
+        }
+        25% {
+          transform: skewX(-10deg);
+          opacity: 0.8;
+        }
+        26% {
+            transform: none;
+            opacity: 1;
+        }
+        50%, 55% {
+            transform: translate(2px, 2px);
+            opacity: 0.7;
+        }
+        56%, 100% {
+            transform: none;
+            opacity: 1;
+        }
+      }
+    </style>
+  </defs>
+  <text x="100" y="35" class="text">SLEEP</text>
+  <text x="100" y="60" class="text break-text">BREAK</text>
+</svg>

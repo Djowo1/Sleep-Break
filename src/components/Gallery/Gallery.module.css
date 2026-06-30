@@ -1,0 +1,195 @@
+.gallery {
+  padding: 100px 0;
+  background-color: var(--night-bg);
+  color: var(--night-text);
+  text-align: center;
+  overflow: hidden; /* Hide overflow from 3D rotation */
+}
+
+.title {
+  font-family: var(--font-pixel);
+  font-size: 48px;
+  margin-bottom: 80px;
+  color: var(--pink-hot);
+  position: relative;
+  display: inline-block;
+  animation: glitch-text 6s infinite;
+}
+
+/* 3D Carousel Container */
+.carouselContainer {
+  position: relative;
+  width: 100%;
+  height: 400px; /* Adjust height as needed */
+  perspective: 1500px; /* Stronger 3D effect */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: rotateCarousel 20s linear infinite;
+}
+
+.carouselContainer:hover {
+  animation-play-state: paused;
+}
+
+.carouselItem {
+  position: absolute;
+  width: 260px;
+  height: 340px;
+  transform-style: preserve-3d;
+  transform: rotateY(var(--angle)) translateZ(400px); /* Adjust translateZ for radius */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  overflow: hidden;
+  border: 1px solid transparent;
+  box-shadow: 0 0 15px rgba(123, 47, 190, 0.4);
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.carouselItem:hover {
+  box-shadow: 0 0 25px var(--pink-hot), 0 0 40px var(--magenta);
+}
+
+.cardImage {
+  object-fit: cover;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.cardTitle {
+  position: relative;
+  font-family: var(--font-pixel);
+  font-size: 18px;
+  color: #fff;
+  z-index: 1;
+  padding: 20px;
+  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+  width: 100%;
+  text-align: center;
+}
+
+.cardBorder {
+  position: absolute;
+  inset: 0;
+  border: 2px solid;
+  border-image: linear-gradient(45deg, var(--pink-hot), var(--purple-bright)) 1;
+  border-image-slice: 1;
+  pointer-events: none;
+  z-index: 2;
+}
+
+
+/* Lightbox Overlay */
+.lightboxOverlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.lightboxContent {
+  position: relative;
+  width: 90vw;
+  height: 90vh;
+  max-width: 1200px;
+  max-height: 800px;
+}
+
+.closeButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 40px;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.mySwiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiperSlide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000;
+}
+
+.swiperSlide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Glitch animation for title */
+@keyframes glitch-text {
+  0% { text-shadow: 0.05em 0 0 var(--pink-hot), -0.05em -0.025em 0 var(--purple-bright), -0.025em 0.05em 0 var(--magenta); }
+  14% { text-shadow: 0.05em 0 0 var(--pink-hot), -0.05em -0.025em 0 var(--purple-bright), -0.025em 0.05em 0 var(--magenta); }
+  15% { text-shadow: -0.05em -0.025em 0 var(--pink-hot), 0.025em 0.025em 0 var(--purple-bright), -0.05em -0.05em 0 var(--magenta); }
+  49% { text-shadow: -0.05em -0.025em 0 var(--pink-hot), 0.025em 0.025em 0 var(--purple-bright), -0.05em -0.05em 0 var(--magenta); }
+  50% { text-shadow: 0.025em 0.05em 0 var(--pink-hot), 0.05em 0 0 var(--purple-bright), 0em -0.025em 0 var(--magenta); }
+  99% { text-shadow: 0.025em 0.05em 0 var(--pink-hot), 0.05em 0 0 var(--purple-bright), 0em -0.025em 0 var(--magenta); }
+  100% { text-shadow: -0.025em 0 0 var(--pink-hot), -0.025em -0.025em 0 var(--purple-bright), -0.05em -0.05em 0 var(--magenta); }
+}
+
+/* Carousel rotation animation */
+@keyframes rotateCarousel {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .title {
+    font-size: 36px;
+  }
+
+  .carouselContainer {
+    height: 300px;
+  }
+
+  .carouselItem {
+    width: 200px;
+    height: 280px;
+    transform: rotateY(var(--angle)) translateZ(300px);
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 28px;
+    margin-bottom: 50px;
+  }
+
+  .carouselContainer {
+    height: 250px;
+  }
+
+  .carouselItem {
+    width: 160px;
+    height: 220px;
+    transform: rotateY(var(--angle)) translateZ(250px);
+  }
+
+  .cardTitle {
+    font-size: 14px;
+    padding: 10px;
+  }
+}

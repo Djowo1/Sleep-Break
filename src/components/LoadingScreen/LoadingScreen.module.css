@@ -1,0 +1,343 @@
+.wrapper {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* ── REC BADGE ── */
+.recBadge {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 6;
+  font-family: var(--font-pixel);
+}
+
+.recDot {
+  width: 8px;
+  height: 8px;
+  background: #ff3030;
+  border-radius: 50%;
+  animation: recBlink 1s steps(1) infinite;
+  box-shadow: 0 0 8px #ff3030;
+}
+
+.recLabel {
+  font-size: 0.45rem;
+  color: #ff3030;
+  letter-spacing: 2px;
+}
+
+.recTimer {
+  font-size: 0.4rem;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 1px;
+}
+
+.channelBadge {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  font-family: var(--font-pixel);
+  font-size: 0.4rem;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 2px;
+  z-index: 6;
+}
+
+/* ── BACKGROUND FIGURE ── */
+.bgFigure {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.92);
+  width: min(50vw, 340px);
+  height: min(78vh, 520px);
+  background-image: url('/images/loading/shhh-figure.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0;
+  filter: brightness(0.6) contrast(1.25) saturate(0.85);
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s cubic-bezier(0.76, 0, 0.24, 1),
+    top 0.5s cubic-bezier(0.76, 0, 0.24, 1),
+    width 0.5s cubic-bezier(0.76, 0, 0.24, 1),
+    height 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+  z-index: 1;
+}
+
+.bgFigureIn {
+  opacity: 0.9;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.bgFigureShrink {
+  opacity: 1;
+  top: 38%;
+  width: min(34vw, 220px);
+  height: min(48vh, 320px);
+  transform: translate(-50%, -50%) scale(1);
+  filter: brightness(0.75) contrast(1.25) saturate(0.9);
+}
+
+/* ── STATIC NOISE ── */
+.static {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  animation: staticNoise 0.08s steps(2) infinite;
+  filter: contrast(1.4) brightness(1.2);
+  opacity: 0.95;
+  mix-blend-mode: overlay;
+  transition: opacity 0.6s ease;
+  z-index: 2;
+}
+
+.staticDim {
+  opacity: 0.4;
+}
+
+.staticFaint {
+  opacity: 0.18;
+}
+
+/* ── VIGNETTE ── */
+.vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 70% at 50% 40%, transparent 0%, rgba(0,0,0,0.55) 65%, rgba(0,0,0,0.97) 100%),
+    linear-gradient(180deg, rgba(10,0,8,0.5) 0%, transparent 25%, transparent 65%, rgba(10,0,8,0.7) 100%);
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* ── CRT LINES ── */
+.crtLines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 2px,
+    rgba(0, 0, 0, 0.35) 2px,
+    rgba(0, 0, 0, 0.35) 4px
+  );
+  pointer-events: none;
+  z-index: 4;
+}
+
+/* ── GLITCH BARS (pure static phase) ── */
+.glitchBar1,
+.glitchBar2,
+.glitchBar3 {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 14px;
+  background: rgba(255, 255, 255, 0.08);
+  z-index: 2;
+}
+
+.glitchBar1 {
+  top: 15%;
+  animation: glitchBarMove 0.25s linear infinite;
+}
+
+.glitchBar2 {
+  top: 55%;
+  animation: glitchBarMove 0.32s linear infinite reverse;
+}
+
+.glitchBar3 {
+  top: 80%;
+  height: 8px;
+  animation: glitchBarMove 0.2s linear infinite;
+}
+
+/* ── BOTTOM CONTENT (text + progress, below shrunk image) ── */
+.bottomContent {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: min(90vw, 420px);
+  padding: 0 16px;
+}
+
+.typedText {
+  font-family: var(--font-pixel);
+  font-size: clamp(0.45rem, 1.8vw, 0.65rem);
+  color: var(--pink-hot);
+  letter-spacing: 1.5px;
+  text-align: center;
+  text-shadow: 0 0 10px var(--pink-hot), 0 0 20px rgba(255, 45, 120, 0.5);
+  line-height: 1.6;
+  min-height: 2.4em;
+}
+
+.cursor {
+  display: inline-block;
+  color: var(--white-glow);
+  animation: cursorBlink 0.6s steps(1) infinite;
+  margin-left: 2px;
+}
+
+.barWrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.barTrack {
+  flex: 1;
+  height: 9px;
+  background: rgba(26, 10, 46, 0.8);
+  border: 1px solid var(--purple-bright);
+  position: relative;
+  overflow: hidden;
+}
+
+.barFill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--purple-bright), var(--pink-hot), var(--magenta));
+  box-shadow: 0 0 10px var(--pink-hot);
+}
+
+.segment {
+  position: absolute;
+  top: 0;
+  width: 1px;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  opacity: 0.5;
+}
+
+.percent {
+  font-family: var(--font-pixel);
+  font-size: 0.45rem;
+  color: var(--pink-hot);
+  min-width: 30px;
+  text-align: right;
+}
+
+/* ── CORNER DECORATIONS ── */
+.corner {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  pointer-events: none;
+  z-index: 6;
+}
+
+.cornerTL {
+  top: 18px;
+  left: 18px;
+  border-top: 2px solid var(--pink-hot);
+  border-left: 2px solid var(--pink-hot);
+}
+
+.cornerTR {
+  top: 18px;
+  right: 18px;
+  border-top: 2px solid var(--pink-hot);
+  border-right: 2px solid var(--pink-hot);
+}
+
+.cornerBL {
+  bottom: 18px;
+  left: 18px;
+  border-bottom: 2px solid var(--pink-hot);
+  border-left: 2px solid var(--pink-hot);
+}
+
+.cornerBR {
+  bottom: 18px;
+  right: 18px;
+  border-bottom: 2px solid var(--pink-hot);
+  border-right: 2px solid var(--pink-hot);
+}
+
+/* ── KEYFRAMES ── */
+@keyframes staticNoise {
+  0% { background-position: 0 0; }
+  25% { background-position: -15% 8%; }
+  50% { background-position: 12% -10%; }
+  75% { background-position: -8% -15%; }
+  100% { background-position: 0 0; }
+}
+
+@keyframes glitchBarMove {
+  0% { transform: translateX(-100%); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateX(100%); opacity: 0; }
+}
+
+@keyframes recBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.2; }
+}
+
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .bgFigureShrink {
+    width: min(42vw, 200px);
+    height: min(42vh, 260px);
+    top: 36%;
+  }
+
+  .bottomContent {
+    bottom: 8%;
+  }
+}
+
+@media (max-width: 480px) {
+  .bgFigure {
+    width: 60vw;
+    height: 60vh;
+  }
+
+  .bgFigureShrink {
+    width: 48vw;
+    height: 38vh;
+    top: 33%;
+  }
+
+  .recBadge {
+    top: 16px;
+    left: 16px;
+  }
+
+  .channelBadge {
+    top: 16px;
+    right: 16px;
+  }
+
+  .typedText {
+    font-size: 0.5rem;
+    line-height: 1.5;
+  }
+}
