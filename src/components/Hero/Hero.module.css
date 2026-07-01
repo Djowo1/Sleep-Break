@@ -33,6 +33,11 @@
   background-position: center;
   background-repeat: no-repeat;
   filter: brightness(0.98) saturate(1.3);
+  position:abolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 .midOverlay {
@@ -672,14 +677,7 @@
   right: 0;
   height: 2px;
   overflow-x: hidden !important;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--purple-bright),
-    var(--pink-hot),
-    var(--purple-bright),
-    transparent
-  );
+  background: transparent;
 }
 
 @keyframes titleGlitch {
@@ -793,6 +791,10 @@
 
   .loopSlideshow {
     min-height: 70px;
+  }
+
+  .bgLayer {
+    inset: 0 !important;
   }
 }
 
