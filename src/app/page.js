@@ -4,6 +4,7 @@ import CustomCursor from '../components/CustomCursor/CustomCursor'
 import LoadingScreen from '../components/LoadingScreen/LoadingScreen'
 import Navbar from '../components/Navbar/Navbar'
 import Hero from '../components/Hero/Hero'
+import About from '../components/About/About'
 
 export default function Home() {
   return (
@@ -13,7 +14,7 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-        <div id="about" style={{ height: '100vh', background: 'var(--bg-secondary)' }} />
+        <About />
         <div id="gallery" style={{ height: '100vh' }} />
         <div id="enemies" style={{ height: '100vh' }} />
         <div id="devlog" style={{ height: '100vh' }} />

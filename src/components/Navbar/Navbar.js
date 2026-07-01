@@ -1,12 +1,12 @@
 'use client'
 
 import { useState, useEffect, useContext } from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useDayNight } from '../../context/DayNightContext'
 import styles from './Navbar.module.css'
-import { FaDiscord, FaSteam } from 'react-icons/fa';
+import { FaDiscord, FaSteam, FaInstagram, FaTiktok, FaYoutube } from 'react-icons/fa'
+import SleepBreakLogo from '../Logo/Logo'
 
 const leftLinks = [
   { label: 'Home', href: '#home' },
@@ -94,14 +94,9 @@ export default function Navbar() {
           <button
             className={styles.logoBtn}
             onClick={() => handleNavClick('#home')}
+            aria-label="Sleep Break — Home"
           >
-            <Image
-              src="/images/logo/logo.svg"
-              alt="Sleep Break Logo"
-              width={200}
-              height={50}
-              className={styles.logo}
-            />
+            <SleepBreakLogo />
           </button>
 
           <div className={styles.divider} />
@@ -129,24 +124,28 @@ export default function Navbar() {
               </span>
             </button>
 
-            <a
-              href="https://discord.gg/sleepbreak"
+            
+            <a  
+            href="https://discord.gg/sleepbreak"
               target="_blank"
               rel="noopener noreferrer"
               className={styles.discordBtn}
             >
-              <FaDiscord />
+              <FaDiscord className={styles.btnIcon} />
               Discord
             </a>
 
+            
             <a
               href="#"
               target="_blank"
               rel="noopener noreferrer"
               className={styles.ctaBtn}
             >
-              <FaSteam />
-              Add to Wishlist
+              <span className={styles.ctaBtnInner}>
+                <FaSteam className={styles.btnIcon} />
+                Add to Wishlist
+              </span>
             </a>
           </div>
 
@@ -181,12 +180,7 @@ export default function Navbar() {
             </button>
 
             <div className={styles.mobileLogo}>
-              <Image
-                src="/images/logo/logo.svg"
-                alt="Sleep Break Logo"
-                width={200}
-                height={50}
-              />
+              <SleepBreakLogo />
             </div>
 
             <nav className={styles.mobileLinks}>
@@ -219,12 +213,14 @@ export default function Navbar() {
                 {isDayMode ? '☀️ Day Mode' : '🌙 Night Mode'}
               </button>
 
+              
               <a
                 href="https://discord.gg/sleepbreak"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.mobileDiscord}
               >
+                <FaDiscord className={styles.btnIcon} />
                 Join Discord
               </a>
 
@@ -234,13 +230,20 @@ export default function Navbar() {
                 rel="noopener noreferrer"
                 className={styles.mobileCta}
               >
+                <FaSteam className={styles.btnIcon} />
                 Add to Wishlist
               </a>
 
               <div className={styles.mobileSocials}>
-                <a href="https://www.instagram.com/sleep.break/" target="_blank" rel="noopener noreferrer">IG</a>
-                <a href="https://www.tiktok.com/@sleep.break" target="_blank" rel="noopener noreferrer">TT</a>
-                <a href="https://www.youtube.com/channel/UCBYmUTSM2VYazHUfFAvqSSw" target="_blank" rel="noopener noreferrer">YT</a>
+                <a href="https://www.instagram.com/sleep.break/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                  <FaInstagram />
+                </a>
+                <a href="https://www.tiktok.com/@sleep.break" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+                  <FaTiktok />
+                </a>
+                <a href="https://www.youtube.com/channel/UCBYmUTSM2VYazHUfFAvqSSw" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                  <FaYoutube />
+                </a>
               </div>
             </div>
           </motion.div>

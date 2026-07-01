@@ -1,0 +1,96 @@
+.logoWrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+
+.logoSvg {
+  width: clamp(64px, 8vw, 96px);
+  height: auto;
+  overflow: visible;
+}
+
+.sbMark {
+  transition: filter 0.3s ease;
+}
+
+.letterStroke {
+  stroke: var(--white-glow);
+  stroke-width: 7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 6px var(--pink-hot))
+          drop-shadow(0 0 14px rgba(123, 47, 190, 0.6));
+  transition: stroke 0.3s ease;
+}
+
+.logoWrap:hover .letterStroke {
+  stroke: var(--pink-hot);
+}
+
+.eyesGroup {
+  transform-origin: center;
+}
+
+.eyeWhite {
+  fill: var(--white-glow);
+  stroke: rgba(123, 47, 190, 0.7);
+  stroke-width: 1.5;
+}
+
+.pupil {
+  fill: #1a0a2e;
+  animation: eyeGlance 6s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.eye[data-eye='left'] .pupil {
+  animation-delay: 0s;
+}
+
+.eye[data-eye='right'] .pupil {
+  animation-delay: 0s;
+}
+
+@keyframes eyeGlance {
+  0%, 12% {
+    transform: translateX(0);
+  }
+  20%, 38% {
+    transform: translateX(-4.5px);
+  }
+  46%, 64% {
+    transform: translateX(4.5px);
+  }
+  72%, 100% {
+    transform: translateX(0);
+  }
+}
+
+.eye {
+  animation: eyeBlink 6s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.eye[data-eye='right'] {
+  animation-delay: 0.08s;
+}
+
+@keyframes eyeBlink {
+  0%, 90%, 94%, 100% {
+    transform: scaleY(1);
+  }
+  92% {
+    transform: scaleY(0.1);
+  }
+}
+
+.logoWrap {
+  animation: logoBreathe 5s ease-in-out infinite;
+}
+
+@keyframes logoBreathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.015); }
+}

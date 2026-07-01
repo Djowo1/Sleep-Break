@@ -70,6 +70,52 @@ function CandleGlow({ style }) {
   )
 }
 
+const LOOP_PHASES = [
+  { icon: '☀️', label: 'MORNING', desc: 'Wake up before they do' },
+  { icon: '🛒', label: 'PREPARE', desc: 'Earn money, buy gear' },
+  { icon: '🌙', label: 'NIGHT', desc: 'The headset goes on' },
+  { icon: '👁️', label: 'SURVIVE', desc: 'Don\u2019t let them find you' },
+]
+
+function LoopSlideshow() {
+  const [index, setIndex] = useState(0)
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setIndex(prev => (prev + 1) % LOOP_PHASES.length)
+    }, 2200)
+    return () => clearInterval(id)
+  }, [])
+
+  return (
+    <div className={styles.loopSlideshow}>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={LOOP_PHASES[index].label}
+          className={styles.loopSlide}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          transition={{ duration: 0.45, ease: 'easeOut' }}
+        >
+          <span className={styles.loopSlideIcon}>{LOOP_PHASES[index].icon}</span>
+          <span className={styles.loopSlideLabel}>{LOOP_PHASES[index].label}</span>
+          <span className={styles.loopSlideDesc}>{LOOP_PHASES[index].desc}</span>
+        </motion.div>
+      </AnimatePresence>
+
+      <div className={styles.loopDots} aria-hidden="true">
+        {LOOP_PHASES.map((phase, i) => (
+          <span
+            key={phase.label}
+            className={`${styles.loopDot} ${i === index ? styles.loopDotActive : ''}`}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
 export default function Hero() {
   const heroRef = useRef(null)
   const [scrolled, setScrolled] = useState(false)
@@ -81,16 +127,13 @@ export default function Hero() {
     offset: ['start start', 'end start']
   })
 
-  // Parallax transforms — disabled on mobile
   const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '30%'])
   const midY = useTransform(scrollYProgress, [0, 1], ['0%', '18%'])
   const fgY = useTransform(scrollYProgress, [0, 1], ['0%', '8%'])
 
-  // Crawl teaser — grows as user scrolls
   const crawlOpacity = useTransform(scrollYProgress, [0, 0.6], [0.08, 0.75])
   const crawlScale = useTransform(scrollYProgress, [0, 0.6], [0.85, 1.1])
 
-  // Content fades out as user scrolls
   const contentOpacity = useTransform(scrollYProgress, [0, 0.4], [1, 0])
   const contentY = useTransform(scrollYProgress, [0, 0.4], ['0%', '-12%'])
 
@@ -107,15 +150,6 @@ export default function Hero() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const handlePlayDemo = () => {
-    const el = document.getElementById('demo')
-    if (el) el.scrollIntoView({ behavior: 'smooth' })
-  }
-
-  const handleDiscord = () => {
-    window.open('https://discord.gg/sleepbreak', '_blank')
-  }
-
   const pad = n => String(n).padStart(2, '0')
 
   return (
@@ -124,9 +158,7 @@ export default function Hero() {
       ref={heroRef}
       className={styles.hero}
     >
-      {/* ── BACKGROUND LAYERS ── */}
       <div className={styles.bgWrapper} aria-hidden="true">
-        {/* Layer 1 — deepest background */}
         <motion.div
           className={styles.bgLayer1}
           style={{ y: isMobile ? 0 : bgY }}
@@ -139,7 +171,6 @@ export default function Hero() {
           />
         </motion.div>
 
-        {/* Layer 2 — mid layer dark overlay */}
         <motion.div
           className={styles.bgLayer2}
           style={{ y: isMobile ? 0 : midY }}
@@ -147,7 +178,6 @@ export default function Hero() {
           <div className={styles.midOverlay} />
         </motion.div>
 
-        {/* Layer 3 — foreground vignette */}
         <motion.div
           className={styles.bgLayer3}
           style={{ y: isMobile ? 0 : fgY }}
@@ -155,7 +185,6 @@ export default function Hero() {
           <div className={styles.vignette} />
         </motion.div>
 
-        {/* THE CRAWL TEASER — behind TV */}
         <motion.div
           className={styles.crawlTeaser}
           style={{
@@ -166,25 +195,20 @@ export default function Hero() {
           <div className={styles.crawlShape} />
         </motion.div>
 
-        {/* Candle glows */}
         <CandleGlow style={{ bottom: '22%', left: '30%', animationDelay: '0s' }} />
         <CandleGlow style={{ bottom: '22%', left: '35%', animationDelay: '0.4s' }} />
         <CandleGlow style={{ bottom: '20%', left: '32%', animationDelay: '0.8s' }} />
         <CandleGlow style={{ bottom: '20%', left: '38%', animationDelay: '1.2s' }} />
 
-        {/* TV glow */}
         <div className={styles.tvGlow} aria-hidden="true" />
 
-        {/* Gradient overlays */}
         <div className={styles.gradientBottom} />
         <div className={styles.gradientTop} />
         <div className={styles.gradientSides} />
       </div>
 
-      {/* ── PARTICLES ── */}
       <Particles />
 
-      {/* ── MAIN CONTENT ── */}
       <motion.div
         className={styles.content}
         style={{
@@ -192,7 +216,6 @@ export default function Hero() {
           y: isMobile ? 0 : contentY,
         }}
       >
-        {/* Studio label */}
         <motion.div
           className={styles.studioLabel}
           initial={{ opacity: 0, y: -20 }}
@@ -204,7 +227,6 @@ export default function Hero() {
           <span className={styles.labelLine} />
         </motion.div>
 
-        {/* Main title */}
         <motion.div
           className={styles.titleWrapper}
           initial={{ opacity: 0, y: 40 }}
@@ -216,7 +238,6 @@ export default function Hero() {
             <br />
             BREAK
           </h1>
-          {/* Glitch layers */}
           <div className={styles.glitchLayer1} aria-hidden="true">
             SLEEP<br />BREAK
           </div>
@@ -225,7 +246,6 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        {/* Tagline */}
         <motion.div
           className={styles.taglineWrapper}
           initial={{ opacity: 0 }}
@@ -233,14 +253,18 @@ export default function Hero() {
           transition={{ delay: 0.9, duration: 0.8 }}
         >
           <p className={styles.tagline}>
-            The monsters come out at night.
+            <span className={styles.taglineWord}>The</span>{' '}
+            <span className={styles.taglineWord}>monsters</span>{' '}
+            <span className={styles.taglineWord}>come</span>{' '}
+            <span className={styles.taglineWord}>out</span>{' '}
+            <span className={styles.taglineWord}>at</span>{' '}
+            <span className={styles.taglineWord}>night.</span>
           </p>
           <p className={`${styles.tagline} ${styles.taglinePink}`}>
             So does he.
           </p>
         </motion.div>
 
-        {/* Genre tags */}
         <motion.div
           className={styles.tags}
           initial={{ opacity: 0, y: 20 }}
@@ -252,7 +276,6 @@ export default function Hero() {
           ))}
         </motion.div>
 
-        {/* CTA Buttons */}
         <motion.div
           className={styles.buttons}
           initial={{ opacity: 0, y: 30 }}
@@ -260,18 +283,19 @@ export default function Hero() {
           transition={{ delay: 1.3, duration: 0.7 }}
         >
           <a href="#" className={styles.btnPrimary} target="_blank" rel="noopener noreferrer">
-            <FaSteam />
-            <span>ADD TO WISHLIST</span>
+            <span className={styles.btnPrimaryInner}>
+              <FaSteam className={styles.btnIconSteam} />
+              <span>ADD TO WISHLIST</span>
+            </span>
             <span className={styles.btnGlow} aria-hidden="true" />
           </a>
 
           <a href="https://discord.gg/sleepbreak" className={styles.btnSecondary} target="_blank" rel="noopener noreferrer">
-            <FaDiscord />
+            <FaDiscord className={styles.btnIconDiscord} />
             <span>JOIN DISCORD</span>
           </a>
         </motion.div>
 
-        {/* Countdown */}
         <motion.div
           className={styles.countdown}
           initial={{ opacity: 0, y: 20 }}
@@ -294,42 +318,22 @@ export default function Hero() {
                 </div>
                 <span className={styles.timeLabel}>{unit.label}</span>
                 {i < 3 && (
-                  <span className={styles.timeSep}>:</span>
+                  <span className={styles.timeSep} aria-hidden="true">:</span>
                 )}
               </div>
             ))}
           </div>
         </motion.div>
 
-        {/* Game loop preview */}
         <motion.div
-          className={styles.loopPreview}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.8, duration: 0.7 }}
         >
-          {[
-            { icon: '☀️', label: 'MORNING' },
-            { icon: '→', label: null, isSep: true },
-            { icon: '🛒', label: 'PREPARE' },
-            { icon: '→', label: null, isSep: true },
-            { icon: '🌙', label: 'NIGHT' },
-            { icon: '→', label: null, isSep: true },
-            { icon: '👁️', label: 'SURVIVE' },
-          ].map((item, i) => (
-            item.isSep
-              ? <span key={i} className={styles.loopSep}>{item.icon}</span>
-              : (
-                <div key={i} className={styles.loopItem}>
-                  <span className={styles.loopIcon}>{item.icon}</span>
-                  <span className={styles.loopLabel}>{item.label}</span>
-                </div>
-              )
-          ))}
+          <LoopSlideshow />
         </motion.div>
       </motion.div>
 
-      {/* ── SCROLL INDICATOR ── */}
       <AnimatePresence>
         {!scrolled && (
           <motion.div
@@ -349,13 +353,11 @@ export default function Hero() {
         )}
       </AnimatePresence>
 
-      {/* ── CORNER DECORATIONS ── */}
       <div className={styles.cornerTL} aria-hidden="true" />
       <div className={styles.cornerTR} aria-hidden="true" />
       <div className={styles.cornerBL} aria-hidden="true" />
       <div className={styles.cornerBR} aria-hidden="true" />
 
-      {/* Section divider */}
       <div className={styles.sectionDivider} />
     </section>
   )
