@@ -1,7 +1,7 @@
 /* ── HERO SECTION ── */
 .hero {
   position: relative;
-  width: 100%;
+  width: 100vw;
   max-width:100vw;
   min-height: 100vh;
   display: flex;
@@ -33,7 +33,7 @@
   background-position: center;
   background-repeat: no-repeat;
   filter: brightness(0.98) saturate(1.3);
-  position:abolute;
+  position:absolute;
   top: 0;
   left: 0;
   right: 0;
@@ -677,6 +677,7 @@
   right: 0;
   height: 2px;
   overflow-x: hidden !important;
+  width: 100%;
   background: transparent;
 }
 
