@@ -6,12 +6,7 @@ export default function About() {
   return (
     <section id="about" className={styles.about}>
       <div className={styles.container}>
-        <div className={styles.left}>
-          <div className={styles.imageContainer}>
-            <img src="/images/hero/horror-bedroom.png" alt="Night Bedroom" className={styles.imageNight} />
-            <img src="/images/hero/horror-bedroom.png" alt="Day Bedroom" className={styles.imageDay} />
-          </div>
-        </div>
+       
         <div className={styles.right}>
           <div className={styles.content}>
             <p className={styles.label}>WHAT IS SLEEP BREAK</p>
@@ -40,6 +35,12 @@ export default function About() {
                 <p>REPEAT</p>
               </div>
             </div>
+          </div>
+        </div>
+         <div className={styles.left}>
+          <div className={styles.imageContainer}>
+            <img src="/images/hero/horror-bedroom.png" alt="Night Bedroom" className={styles.imageNight} />
+            <img src="/images/hero/horror-bedroom.png" alt="Day Bedroom" className={styles.imageDay} />
           </div>
         </div>
       </div>
